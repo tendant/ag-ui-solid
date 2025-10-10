@@ -1,0 +1,44 @@
+{
+  "name": "ag-ui-solid",
+  "version": "0.1.0",
+  "description": "A SolidJS component library for AI chat interfaces",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "peerDependencies": {
+    "solid-js": "^1.8.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.5",
+    "autoprefixer": "^10.4.17",
+    "postcss": "^8.4.33",
+    "solid-js": "^1.8.11",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.11",
+    "vite-plugin-solid": "^2.8.2"
+  },
+  "keywords": [
+    "solidjs",
+    "chat",
+    "ai",
+    "ui",
+    "components"
+  ],
+  "license": "MIT"
+}

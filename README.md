@@ -16,7 +16,7 @@ A modern SolidJS component library for building AI chat interfaces with Tailwind
 npm install ag-ui-solid solid-js
 ```
 
-Make sure you have TailwindCSS configured in your project.
+Make sure you have TailwindCSS configured in your project. See [Getting Started Guide](./GETTING_STARTED.md) for detailed setup instructions.
 
 ## Quick Start
 
@@ -40,6 +40,8 @@ function App() {
   );
 }
 ```
+
+**New to ag-ui-solid?** Check out the [Getting Started Guide](./GETTING_STARTED.md) for a step-by-step tutorial.
 
 ## Components
 
@@ -177,9 +179,104 @@ The library includes tests for:
 - Error handling and loading states
 - Accessibility and styling
 
-## Example
+## Documentation
 
-See `src/example/App.tsx` for a complete example implementation.
+- **[Getting Started Guide](./GETTING_STARTED.md)** - Step-by-step setup tutorial
+- **[Usage Guide](./USAGE.md)** - Complete examples and patterns
+- **[Testing Guide](./TESTING.md)** - How to test your components
+- **[API Reference](#components)** - Component props and types (this file)
+
+## Examples
+
+### In This Repository
+
+- **[Example App](./src/example/App.tsx)** - Basic chat interface
+- **[Vite + SolidJS](./examples/vite-solidjs/)** - Complete frontend example
+- **[Express Backend](./examples/backend-express/)** - Backend API server
+
+### Quick Examples
+
+**Simple Chat:**
+```tsx
+import { ChatContainer, useChatStream } from 'ag-ui-solid';
+
+const App = () => {
+  const [state, actions] = useChatStream({ apiEndpoint: '/api/chat' });
+  return <ChatContainer {...state} onSendMessage={actions.sendMessage} />;
+};
+```
+
+**With Custom Styling:**
+```tsx
+<ChatContainer
+  messages={messages}
+  onSendMessage={handleSend}
+  class="bg-gray-50 rounded-lg shadow-xl"
+  placeholder="Ask me anything..."
+/>
+```
+
+**Individual Components:**
+```tsx
+import { Message, Composer, ToolResult } from 'ag-ui-solid';
+
+// Use components separately for full customization
+<div>
+  <Message message={myMessage} />
+  <Composer onSend={handleSend} maxLength={500} />
+  <ToolResult toolResult={result} />
+</div>
+```
+
+See [USAGE.md](./USAGE.md) for more examples including:
+- Custom API integration
+- Persistent chat history
+- Multi-model selection
+- Custom message rendering
+- Backend integration patterns
+
+## How Other Apps Use This Library
+
+Other applications can integrate ag-ui-solid in several ways:
+
+### 1. As a Complete Chat Interface
+
+```bash
+npm install ag-ui-solid solid-js
+```
+
+Then use `ChatContainer` with `useChatStream()` for a full-featured chat (see [Getting Started](./GETTING_STARTED.md)).
+
+### 2. Individual Components
+
+Import only the components you need:
+
+```tsx
+import { Message, Composer } from 'ag-ui-solid';
+// Build your own layout
+```
+
+### 3. With Your Own State Management
+
+Use the components with your existing state:
+
+```tsx
+import { ChatContainer } from 'ag-ui-solid';
+
+const MyApp = () => {
+  const [messages, setMessages] = myCustomStore();
+  return <ChatContainer messages={messages} onSendMessage={handleSend} />;
+};
+```
+
+### 4. Backend Integration
+
+The library works with any backend that returns streaming text or JSON. Examples included for:
+- Express.js + OpenAI (see `examples/backend-express`)
+- Custom streaming endpoints
+- WebSocket connections
+
+See [USAGE.md](./USAGE.md) for complete integration examples.
 
 ## License
 

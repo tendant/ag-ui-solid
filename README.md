@@ -183,6 +183,7 @@ The library includes tests for:
 
 - **[Getting Started Guide](./GETTING_STARTED.md)** - Step-by-step setup tutorial
 - **[Usage Guide](./USAGE.md)** - Complete examples and patterns
+- **[Local Development](./LOCAL_DEV_QUICKSTART.md)** - Use without publishing to npm
 - **[Testing Guide](./TESTING.md)** - How to test your components
 - **[API Reference](#components)** - Component props and types (this file)
 

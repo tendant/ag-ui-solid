@@ -18,10 +18,14 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "build:watch": "vite build --watch",
     "preview": "vite preview",
     "test": "vitest",
     "test:ui": "vitest --ui",
-    "test:coverage": "vitest --coverage"
+    "test:coverage": "vitest --coverage",
+    "link:local": "./scripts/link-local.sh",
+    "unlink:local": "./scripts/unlink-local.sh",
+    "dev:watch": "./scripts/dev-watch.sh"
   },
   "peerDependencies": {
     "solid-js": "^1.8.0"

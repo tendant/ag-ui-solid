@@ -1,4 +1,6 @@
 import { Component, createSignal, Show } from 'solid-js';
+import { TextField } from '@kobalte/core/text-field';
+import { Send } from 'lucide-solid';
 
 export interface ComposerProps {
   onSend: (message: string) => void;
@@ -38,38 +40,47 @@ export const Composer: Component<ComposerProps> = (props) => {
       onSubmit={handleSubmit}
       class={`flex flex-col gap-2 ${props.class || ''}`}
     >
-      <div
-        class={`flex items-end gap-2 border rounded-lg p-2 transition-colors ${
-          isFocused()
-            ? 'border-blue-500 ring-2 ring-blue-200'
-            : 'border-gray-300'
-        } ${props.isDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+      <TextField
+        value={inputValue()}
+        onChange={setInputValue}
+        disabled={props.isDisabled}
       >
-        <textarea
-          value={inputValue()}
-          onInput={(e) => setInputValue(e.currentTarget.value)}
-          onKeyDown={handleKeyDown}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-          disabled={props.isDisabled}
-          placeholder={props.placeholder || 'Type a message...'}
-          class="flex-1 resize-none bg-transparent outline-none min-h-[40px] max-h-[200px] text-sm"
-          rows={1}
-        />
-        <button
-          type="submit"
-          disabled={props.isDisabled || !inputValue().trim() || isOverLimit()}
-          class={`px-4 py-2 rounded-md font-medium text-sm transition-colors ${
-            props.isDisabled || !inputValue().trim() || isOverLimit()
-              ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-              : 'bg-blue-600 text-white hover:bg-blue-700 active:bg-blue-800'
-          }`}
+        <div
+          class={`flex items-end gap-2 border rounded-lg p-2 transition-colors ${
+            isFocused()
+              ? 'border-blue-500 ring-2 ring-blue-200'
+              : 'border-gray-300'
+          } ${props.isDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
         >
-          <Show when={props.isDisabled} fallback="Send">
-            <span class="animate-pulse">...</span>
-          </Show>
-        </button>
-      </div>
+          <TextField.TextArea
+            onKeyDown={handleKeyDown}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+            placeholder={props.placeholder || 'Type a message...'}
+            class="flex-1 resize-none bg-transparent outline-none min-h-[40px] max-h-[200px] text-sm"
+            rows={1}
+            autoResize
+          />
+          <button
+            type="submit"
+            disabled={props.isDisabled || !inputValue().trim() || isOverLimit()}
+            class={`px-4 py-2 rounded-md font-medium text-sm transition-colors flex items-center gap-2 ${
+              props.isDisabled || !inputValue().trim() || isOverLimit()
+                ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                : 'bg-blue-600 text-white hover:bg-blue-700 active:bg-blue-800'
+            }`}
+          >
+            <Show when={props.isDisabled} fallback={
+              <>
+                <Send size={16} />
+                <span>Send</span>
+              </>
+            }>
+              <span class="animate-pulse">...</span>
+            </Show>
+          </button>
+        </div>
+      </TextField>
 
       <Show when={props.maxLength}>
         <div class={`text-xs text-right ${

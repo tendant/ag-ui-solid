@@ -4,7 +4,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-ag-ui-solid is a SolidJS component library for building AI chat interfaces with TailwindCSS. It provides pre-built components (ChatContainer, Message, Composer, ToolResult) and a state management hook (useChatStream) for creating chat applications.
+ag-ui-solid is a SolidJS component library for building AI chat interfaces with TailwindCSS, Kobalte, and lucide-solid. It provides pre-built, accessible components (ChatContainer, Message, Composer, ToolResult) and a state management hook (useChatStream) for creating chat applications.
+
+### Key Technologies
+- **SolidJS**: Reactive UI library
+- **TailwindCSS**: Utility-first CSS framework
+- **Kobalte**: Accessible component primitives for SolidJS
+- **lucide-solid**: Icon library with 1000+ icons
 
 ## Build and Development Commands
 
@@ -49,9 +55,9 @@ npm link ag-ui-solid
 ### Library Structure
 - **src/components/**: Self-contained UI components with co-located tests
   - ChatContainer: Main container combining messages + composer
-  - Message: Single message display with role-based styling
-  - Composer: Text input with submit button and keyboard shortcuts
-  - ToolResult: AI tool execution result display
+  - Message: Single message display with role-based styling, uses lucide icons (User, Bot, Settings)
+  - Composer: Text input built with Kobalte TextField, uses lucide Send icon, includes keyboard shortcuts
+  - ToolResult: AI tool execution result display, uses lucide status icons (CheckCircle, XCircle, Loader, Circle)
 
 - **src/hooks/**: State management and side effects
   - useChatStream: Hook for managing chat state and API streaming
@@ -61,15 +67,20 @@ npm link ag-ui-solid
 - **src/index.tsx**: Library entry point - exports all components, hooks, and types
 
 ### Build Configuration
-- **vite.config.ts**: Library build config (ES module output, externalizes solid-js)
+- **vite.config.ts**: Library build config (ES module output, externalizes solid-js, @kobalte/core, lucide-solid)
 - **vitest.config.ts**: Test configuration (jsdom environment, coverage setup)
 - Library builds to ES module format only (consumers need modern bundlers)
-- SolidJS is a peer dependency (must be provided by consuming app)
+- Peer dependencies (must be provided by consuming app):
+  - solid-js ^1.8.0
+  - @kobalte/core ^0.13.0
+  - lucide-solid ^0.545.0
 
 ### Component Architecture
 Components follow SolidJS patterns:
 - Use signals and effects for reactivity
 - Props are accessed as functions (e.g., `props.messages()`)
+- Built with Kobalte primitives for accessibility (ARIA attributes, keyboard navigation)
+- Icons from lucide-solid for consistent visual design
 - Tests use @solidjs/testing-library
 - All components styled with TailwindCSS utility classes
 
@@ -111,7 +122,7 @@ The dist/ folder (git-ignored) contains:
 
 ## Important Files
 
-- **package.json**: Scripts, peer dependencies (solid-js ^1.8.0)
+- **package.json**: Scripts, peer dependencies (solid-js, @kobalte/core, lucide-solid)
 - **tsconfig.json**: TypeScript configuration for library build
 - **tailwind.config.js**: TailwindCSS configuration
 - **PROJECT_STRUCTURE.md**: Detailed architecture documentation

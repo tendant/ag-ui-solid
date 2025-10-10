@@ -1,5 +1,6 @@
 import { Component, For, Show, createMemo } from 'solid-js';
 import { marked } from 'marked';
+import { User, Bot, Settings } from 'lucide-solid';
 import type { Message as MessageType } from '../types';
 import { ToolResult } from './ToolResult';
 
@@ -29,15 +30,16 @@ export const Message: Component<MessageProps> = (props) => {
   };
 
   const getRoleIcon = () => {
+    const iconProps = { size: 14, class: "inline-block" };
     switch (props.message.role) {
       case 'user':
-        return '👤';
+        return <User {...iconProps} />;
       case 'assistant':
-        return '🤖';
+        return <Bot {...iconProps} />;
       case 'system':
-        return '⚙️';
+        return <Settings {...iconProps} />;
       default:
-        return '•';
+        return <span>•</span>;
     }
   };
 
@@ -75,7 +77,7 @@ export const Message: Component<MessageProps> = (props) => {
       <div class={`flex ${props.message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
         <div class={`rounded-lg px-4 py-3 max-w-[80%] ${getRoleStyles()}`}>
           <div class="flex items-center gap-2 mb-1">
-            <span class="text-sm">{getRoleIcon()}</span>
+            <div class="flex items-center">{getRoleIcon()}</div>
             <span class="text-xs font-semibold capitalize opacity-90">
               {props.message.role}
             </span>

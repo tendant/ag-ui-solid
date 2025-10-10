@@ -15,11 +15,9 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "declaration": true,
-    "declarationDir": "./dist",
-    "outDir": "./dist"
+    "noFallthroughCasesInSwitch": true
   },
   "include": ["src"],
+  "exclude": ["**/*.test.tsx", "**/*.test.ts", "src/test", "src/example"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

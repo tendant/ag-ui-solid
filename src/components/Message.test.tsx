@@ -21,7 +21,9 @@ describe('Message', () => {
     const messageBox = container.querySelector('.bg-blue-600');
     expect(messageBox).toBeInTheDocument();
     expect(screen.getByText('user')).toBeInTheDocument();
-    expect(screen.getByText('👤')).toBeInTheDocument();
+    // Check for lucide User icon SVG
+    const userIcon = container.querySelector('.lucide-user');
+    expect(userIcon).toBeInTheDocument();
   });
 
   it('displays assistant role with correct styling', () => {
@@ -31,7 +33,9 @@ describe('Message', () => {
     const messageBox = container.querySelector('.bg-gray-100');
     expect(messageBox).toBeInTheDocument();
     expect(screen.getByText('assistant')).toBeInTheDocument();
-    expect(screen.getByText('🤖')).toBeInTheDocument();
+    // Check for lucide Bot icon SVG
+    const botIcon = container.querySelector('.lucide-bot');
+    expect(botIcon).toBeInTheDocument();
   });
 
   it('displays system role with correct styling', () => {
@@ -39,7 +43,9 @@ describe('Message', () => {
     const { container } = render(() => <Message message={message} />);
 
     expect(screen.getByText('system')).toBeInTheDocument();
-    expect(screen.getByText('⚙️')).toBeInTheDocument();
+    // Check for lucide Settings icon SVG
+    const settingsIcon = container.querySelector('.lucide-settings');
+    expect(settingsIcon).toBeInTheDocument();
   });
 
   it('displays timestamp', () => {
@@ -108,15 +114,17 @@ describe('Message', () => {
     expect(wrapper).toBeInTheDocument();
   });
 
-  it('preserves whitespace in message content', () => {
+  it('renders markdown content with prose styling', () => {
     const message = createMockMessage({
       content: 'Line 1\nLine 2\n  Indented'
     });
 
-    render(() => <Message message={message} />);
+    const { container } = render(() => <Message message={message} />);
 
-    const contentElement = screen.getByText(/Line 1/);
-    expect(contentElement.className).toContain('whitespace-pre-wrap');
+    // Check for prose class which handles markdown rendering
+    const contentElement = container.querySelector('.prose');
+    expect(contentElement).toBeInTheDocument();
+    expect(contentElement?.className).toContain('break-words');
   });
 
   it('aligns user messages to the right', () => {

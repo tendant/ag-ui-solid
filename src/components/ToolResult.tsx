@@ -1,4 +1,5 @@
 import { Component, Show } from 'solid-js';
+import { CheckCircle, XCircle, Loader, Circle } from 'lucide-solid';
 import type { ToolResult as ToolResultType } from '../types';
 
 export interface ToolResultProps {
@@ -21,15 +22,16 @@ export const ToolResult: Component<ToolResultProps> = (props) => {
   };
 
   const getStatusIcon = () => {
+    const iconProps = { size: 18, class: "inline-block" };
     switch (props.toolResult.status) {
       case 'success':
-        return '✓';
+        return <CheckCircle {...iconProps} />;
       case 'error':
-        return '✗';
+        return <XCircle {...iconProps} />;
       case 'pending':
-        return '⟳';
+        return <Loader {...iconProps} class="inline-block animate-spin" />;
       default:
-        return '•';
+        return <Circle {...iconProps} />;
     }
   };
 
@@ -39,7 +41,7 @@ export const ToolResult: Component<ToolResultProps> = (props) => {
     >
       <div class="flex items-start justify-between mb-2">
         <div class="flex items-center gap-2">
-          <span class="text-lg font-semibold">{getStatusIcon()}</span>
+          <div class="flex items-center">{getStatusIcon()}</div>
           <span class="font-mono text-sm font-medium">{props.toolResult.toolName}</span>
         </div>
         <span class="text-xs opacity-75">

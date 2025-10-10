@@ -10,10 +10,12 @@ describe('ToolResult', () => {
       status: 'success'
     });
 
-    render(() => <ToolResult toolResult={toolResult} />);
+    const { container } = render(() => <ToolResult toolResult={toolResult} />);
 
     expect(screen.getByText('search-tool')).toBeInTheDocument();
-    expect(screen.getByText('✓')).toBeInTheDocument();
+    // Check for SVG icon (lucide icon)
+    const icon = container.querySelector('svg');
+    expect(icon).toBeInTheDocument();
   });
 
   it('displays success status with correct styling', () => {
@@ -30,7 +32,9 @@ describe('ToolResult', () => {
 
     const wrapper = container.querySelector('div');
     expect(wrapper?.className).toContain('bg-red-50');
-    expect(screen.getByText('✗')).toBeInTheDocument();
+    // Check for SVG icon (lucide icon)
+    const icon = container.querySelector('svg');
+    expect(icon).toBeInTheDocument();
   });
 
   it('displays pending status with correct styling', () => {
@@ -39,7 +43,9 @@ describe('ToolResult', () => {
 
     const wrapper = container.querySelector('div');
     expect(wrapper?.className).toContain('bg-yellow-50');
-    expect(screen.getByText('⟳')).toBeInTheDocument();
+    // Check for SVG icon (lucide icon with animation)
+    const icon = container.querySelector('svg.animate-spin');
+    expect(icon).toBeInTheDocument();
   });
 
   it('renders input when provided', () => {

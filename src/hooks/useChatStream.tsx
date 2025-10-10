@@ -1,4 +1,4 @@
-import { createSignal, createEffect } from 'solid-js';
+import { createSignal } from 'solid-js';
 import type { Message, ChatStreamState, ChatStreamActions, UseChatStreamReturn } from '../types';
 
 export interface UseChatStreamOptions {

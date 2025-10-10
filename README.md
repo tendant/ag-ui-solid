@@ -137,7 +137,45 @@ npm run dev
 
 # Build library
 npm run build
+
+# Run tests
+npm test
+
+# Run tests with UI
+npm run test:ui
+
+# Run tests with coverage
+npm run test:coverage
 ```
+
+## Testing
+
+This library comes with comprehensive tests using Vitest and SolidJS Testing Library. See [TESTING.md](./TESTING.md) for detailed testing documentation.
+
+### Running Tests
+
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm test -- --watch
+
+# Run with coverage report
+npm run test:coverage
+
+# Run with interactive UI
+npm run test:ui
+```
+
+### Test Coverage
+
+The library includes tests for:
+- All components (ChatContainer, Message, Composer, ToolResult)
+- The useChatStream hook
+- User interactions and edge cases
+- Error handling and loading states
+- Accessibility and styling
 
 ## Example
 

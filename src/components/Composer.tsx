@@ -1,4 +1,4 @@
-import { Component, createSignal, Show } from 'solid-js';
+import { Component, createSignal, Show, createEffect } from 'solid-js';
 import { TextField } from '@kobalte/core/text-field';
 import { Send } from 'lucide-solid';
 
@@ -22,10 +22,10 @@ export const Composer: Component<ComposerProps> = (props) => {
     if (message && !props.isDisabled) {
       props.onSend(message);
       setInputValue('');
-      // Refocus the textarea after sending
-      setTimeout(() => {
+      // Refocus immediately and persistently
+      requestAnimationFrame(() => {
         textareaRef?.focus();
-      }, 0);
+      });
     }
   };
 
@@ -35,6 +35,18 @@ export const Composer: Component<ComposerProps> = (props) => {
       handleSubmit(e);
     }
   };
+
+  // Watch for when input becomes re-enabled and restore focus
+  createEffect((prev) => {
+    const isDisabled = props.isDisabled;
+    if (prev === true && isDisabled === false && textareaRef) {
+      // Input just became enabled, restore focus
+      requestAnimationFrame(() => {
+        textareaRef?.focus();
+      });
+    }
+    return isDisabled;
+  });
 
   const characterCount = () => inputValue().length;
   const isNearLimit = () => props.maxLength ? characterCount() > props.maxLength * 0.9 : false;
@@ -70,6 +82,7 @@ export const Composer: Component<ComposerProps> = (props) => {
           <button
             type="submit"
             disabled={props.isDisabled || !inputValue().trim() || isOverLimit()}
+            onMouseDown={(e) => e.preventDefault()}
             class={`px-4 py-2 rounded-md font-medium text-sm transition-colors flex items-center gap-2 ${
               props.isDisabled || !inputValue().trim() || isOverLimit()
                 ? 'bg-gray-300 text-gray-500 cursor-not-allowed'

@@ -13,6 +13,7 @@ export interface ComposerProps {
 export const Composer: Component<ComposerProps> = (props) => {
   const [inputValue, setInputValue] = createSignal('');
   const [isFocused, setIsFocused] = createSignal(false);
+  let textareaRef: HTMLTextAreaElement | undefined;
 
   const handleSubmit = (e: Event) => {
     e.preventDefault();
@@ -21,6 +22,10 @@ export const Composer: Component<ComposerProps> = (props) => {
     if (message && !props.isDisabled) {
       props.onSend(message);
       setInputValue('');
+      // Refocus the textarea after sending
+      setTimeout(() => {
+        textareaRef?.focus();
+      }, 0);
     }
   };
 
@@ -53,6 +58,7 @@ export const Composer: Component<ComposerProps> = (props) => {
           } ${props.isDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
         >
           <TextField.TextArea
+            ref={textareaRef}
             onKeyDown={handleKeyDown}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}

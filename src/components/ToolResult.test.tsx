@@ -48,23 +48,23 @@ describe('ToolResult', () => {
     expect(icon).toBeInTheDocument();
   });
 
-  it('renders input when provided', () => {
+  it('renders input when provided and expanded', () => {
     const toolResult = createMockToolResult({
       input: { query: 'test query', limit: 10 }
     });
 
-    render(() => <ToolResult toolResult={toolResult} />);
+    render(() => <ToolResult toolResult={toolResult} defaultExpanded={true} />);
 
     expect(screen.getByText('Input:')).toBeInTheDocument();
     expect(screen.getByText(/"query": "test query"/)).toBeInTheDocument();
   });
 
-  it('renders output when provided', () => {
+  it('renders output when provided and expanded', () => {
     const toolResult = createMockToolResult({
       output: 'Search results: 5 items found'
     });
 
-    render(() => <ToolResult toolResult={toolResult} />);
+    render(() => <ToolResult toolResult={toolResult} defaultExpanded={true} />);
 
     expect(screen.getByText('Output:')).toBeInTheDocument();
     expect(screen.getByText('Search results: 5 items found')).toBeInTheDocument();

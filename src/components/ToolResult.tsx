@@ -1,13 +1,15 @@
-import { Component, Show } from 'solid-js';
-import { CheckCircle, XCircle, Loader, Circle } from 'lucide-solid';
+import { Component, Show, createSignal } from 'solid-js';
+import { CheckCircle, XCircle, Loader, Circle, ChevronDown, ChevronUp } from 'lucide-solid';
 import type { ToolResult as ToolResultType } from '../types';
 
 export interface ToolResultProps {
   toolResult: ToolResultType;
   class?: string;
+  defaultExpanded?: boolean;
 }
 
 export const ToolResult: Component<ToolResultProps> = (props) => {
+  const [isExpanded, setIsExpanded] = createSignal(props.defaultExpanded ?? false);
   const getStatusColor = () => {
     switch (props.toolResult.status) {
       case 'success':
@@ -37,33 +39,43 @@ export const ToolResult: Component<ToolResultProps> = (props) => {
 
   return (
     <div
-      class={`rounded-lg border p-4 mt-2 ${getStatusColor()} ${props.class || ''}`}
+      class={`rounded-lg border p-3 mt-2 ${getStatusColor()} ${props.class || ''}`}
     >
-      <div class="flex items-start justify-between mb-2">
+      <button
+        onClick={() => setIsExpanded(!isExpanded())}
+        class="flex items-start justify-between w-full text-left hover:opacity-80 transition-opacity"
+      >
         <div class="flex items-center gap-2">
           <div class="flex items-center">{getStatusIcon()}</div>
           <span class="font-mono text-sm font-medium">{props.toolResult.toolName}</span>
         </div>
-        <span class="text-xs opacity-75">
-          {props.toolResult.timestamp.toLocaleTimeString()}
-        </span>
-      </div>
-
-      <Show when={Object.keys(props.toolResult.input).length > 0}>
-        <div class="mb-3">
-          <div class="text-xs font-semibold mb-1 opacity-75">Input:</div>
-          <pre class="text-xs bg-white bg-opacity-50 rounded p-2 overflow-x-auto">
-            {JSON.stringify(props.toolResult.input, null, 2)}
-          </pre>
+        <div class="flex items-center gap-2">
+          <span class="text-xs opacity-75">
+            {props.toolResult.timestamp.toLocaleTimeString()}
+          </span>
+          {isExpanded() ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
         </div>
-      </Show>
+      </button>
 
-      <Show when={props.toolResult.output}>
-        <div>
-          <div class="text-xs font-semibold mb-1 opacity-75">Output:</div>
-          <pre class="text-xs bg-white bg-opacity-50 rounded p-2 overflow-x-auto whitespace-pre-wrap break-words">
-            {props.toolResult.output}
-          </pre>
+      <Show when={isExpanded()}>
+        <div class="mt-3 pt-3 border-t border-current border-opacity-20">
+          <Show when={Object.keys(props.toolResult.input).length > 0}>
+            <div class="mb-3">
+              <div class="text-xs font-semibold mb-1 opacity-75">Input:</div>
+              <pre class="text-xs bg-white bg-opacity-50 rounded p-2 overflow-x-auto">
+                {JSON.stringify(props.toolResult.input, null, 2)}
+              </pre>
+            </div>
+          </Show>
+
+          <Show when={props.toolResult.output}>
+            <div>
+              <div class="text-xs font-semibold mb-1 opacity-75">Output:</div>
+              <pre class="text-xs bg-white bg-opacity-50 rounded p-2 overflow-x-auto whitespace-pre-wrap break-words">
+                {props.toolResult.output}
+              </pre>
+            </div>
+          </Show>
         </div>
       </Show>
     </div>

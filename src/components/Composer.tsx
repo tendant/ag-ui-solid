@@ -46,7 +46,7 @@ export const Composer: Component<ComposerProps> = (props) => {
         disabled={props.isDisabled}
       >
         <div
-          class={`flex items-end gap-2 border rounded-lg p-2 transition-colors ${
+          class={`flex items-start gap-2 border rounded-lg p-2 transition-colors ${
             isFocused()
               ? 'border-blue-500 ring-2 ring-blue-200'
               : 'border-gray-300'

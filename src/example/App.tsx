@@ -21,7 +21,7 @@ const App: Component = () => {
           <p class="text-sm text-gray-600">A SolidJS chat component library</p>
         </header>
 
-        <div class="flex-1 bg-white shadow-lg">
+        <div class="flex-1 min-h-0 bg-white shadow-lg">
           <ChatContainer
             messages={state.messages}
             onSendMessage={actions.sendMessage}

@@ -13,7 +13,7 @@ export type { ToolResultProps } from './components/ToolResult';
 
 // Hooks
 export { useChatStream } from './hooks/useChatStream';
-export type { UseChatStreamOptions, UseChatStreamReturn } from './hooks/useChatStream';
+export type { UseChatStreamOptions } from './hooks/useChatStream';
 
 // Types
 export type {

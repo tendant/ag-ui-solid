@@ -1,6 +1,13 @@
-import { Component, For, Show } from 'solid-js';
+import { Component, For, Show, createMemo } from 'solid-js';
+import { marked } from 'marked';
 import type { Message as MessageType } from '../types';
 import { ToolResult } from './ToolResult';
+
+// Configure marked for safe rendering
+marked.setOptions({
+  breaks: true,
+  gfm: true,
+});
 
 export interface MessageProps {
   message: MessageType;
@@ -34,6 +41,35 @@ export const Message: Component<MessageProps> = (props) => {
     }
   };
 
+  // Clean message content by removing tool call data and debug artifacts
+  const cleanContent = (content: string): string => {
+    // Remove tool call sections (lines starting with tool names followed by JSON)
+    let cleaned = content.replace(/\n?\/?\w+_\w+\s*\n?Input:[\s\S]*?Output:[\s\S]*?(\n\n|$)/g, '');
+
+    // Remove AgentRunResult wrapper
+    cleaned = cleaned.replace(/AgentRunResult\(output="(.+)"\)/s, '$1');
+    cleaned = cleaned.replace(/AgentRunResult\(output='(.+)'\)/s, '$1');
+
+    // Remove tool call JSON blocks
+    cleaned = cleaned.replace(/\{"symbol":[^}]+\}/g, '');
+    cleaned = cleaned.replace(/\{[^}]*"tool_name"[^}]*\}/g, '');
+
+    // Unescape quotes
+    cleaned = cleaned.replace(/\\"/g, '"');
+    cleaned = cleaned.replace(/\\'/g, "'");
+
+    // Remove multiple newlines
+    cleaned = cleaned.replace(/\n{3,}/g, '\n\n');
+
+    return cleaned.trim();
+  };
+
+  // Render markdown content
+  const markdownHtml = createMemo(() => {
+    const cleaned = cleanContent(props.message.content);
+    return marked(cleaned) as string;
+  });
+
   return (
     <div class={`flex flex-col gap-2 ${props.class || ''}`}>
       <div class={`flex ${props.message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
@@ -47,9 +83,10 @@ export const Message: Component<MessageProps> = (props) => {
               {props.message.timestamp.toLocaleTimeString()}
             </span>
           </div>
-          <div class="text-sm whitespace-pre-wrap break-words">
-            {props.message.content}
-          </div>
+          <div
+            class="text-sm break-words prose prose-sm max-w-none"
+            innerHTML={markdownHtml()}
+          />
         </div>
       </div>
 

@@ -1,3 +1,155 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Markdown/Prose styling */
+.prose {
+  color: inherit;
+  max-width: 65ch;
+}
+
+.prose p {
+  margin-top: 0.75em;
+  margin-bottom: 0.75em;
+  line-height: 1.6;
+}
+
+.prose p:first-child {
+  margin-top: 0;
+}
+
+.prose p:last-child {
+  margin-bottom: 0;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  font-weight: 600;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+.prose h1 {
+  font-size: 1.5em;
+}
+
+.prose h2 {
+  font-size: 1.3em;
+}
+
+.prose h3 {
+  font-size: 1.1em;
+}
+
+.prose ul,
+.prose ol {
+  margin-top: 0.75em;
+  margin-bottom: 0.75em;
+  padding-left: 1.5em;
+}
+
+.prose li {
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+}
+
+.prose code {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  padding: 0.125em 0.375em;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.prose pre {
+  background-color: #1f2937;
+  color: #f3f4f6;
+  padding: 1em;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin-top: 0.75em;
+  margin-bottom: 0.75em;
+}
+
+.prose pre code {
+  background-color: transparent;
+  color: inherit;
+  padding: 0;
+  font-size: 0.875em;
+}
+
+.prose blockquote {
+  border-left: 3px solid #d1d5db;
+  padding-left: 1em;
+  margin-left: 0;
+  margin-top: 0.75em;
+  margin-bottom: 0.75em;
+  font-style: italic;
+  color: #6b7280;
+}
+
+.prose strong {
+  font-weight: 600;
+}
+
+.prose em {
+  font-style: italic;
+}
+
+.prose a {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+.prose a:hover {
+  color: #1d4ed8;
+}
+
+.prose hr {
+  border: 0;
+  border-top: 1px solid #e5e7eb;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.75em;
+  margin-bottom: 0.75em;
+}
+
+.prose th,
+.prose td {
+  border: 1px solid #e5e7eb;
+  padding: 0.5em;
+  text-align: left;
+}
+
+.prose th {
+  background-color: #f3f4f6;
+  font-weight: 600;
+}
+
+.prose-sm {
+  font-size: 0.875rem;
+}
+
+.prose-sm p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.prose-sm ul,
+.prose-sm ol {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.max-w-none {
+  max-width: none;
+}

@@ -10,6 +10,15 @@ export interface ToolResultProps {
 
 export const ToolResult: Component<ToolResultProps> = (props) => {
   const [isExpanded, setIsExpanded] = createSignal(props.defaultExpanded ?? false);
+
+  // Convert escaped characters to actual characters for proper display
+  const formatOutput = (output: string) => {
+    return output
+      .replace(/\\n/g, '\n')    // Convert \n to newlines
+      .replace(/\\t/g, '\t')    // Convert \t to tabs
+      .replace(/\\r/g, '\r');   // Convert \r to carriage returns
+  };
+
   const getStatusColor = () => {
     switch (props.toolResult.status) {
       case 'success':
@@ -72,7 +81,7 @@ export const ToolResult: Component<ToolResultProps> = (props) => {
             <div>
               <div class="text-xs font-semibold mb-1 opacity-75">Output:</div>
               <pre class="text-xs bg-white bg-opacity-50 rounded p-2 overflow-x-auto whitespace-pre-wrap break-words">
-                {props.toolResult.output}
+                {formatOutput(props.toolResult.output)}
               </pre>
             </div>
           </Show>

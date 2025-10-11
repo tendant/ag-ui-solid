@@ -56,9 +56,12 @@ export const Message: Component<MessageProps> = (props) => {
     cleaned = cleaned.replace(/\{"symbol":[^}]+\}/g, '');
     cleaned = cleaned.replace(/\{[^}]*"tool_name"[^}]*\}/g, '');
 
-    // Unescape quotes
+    // Unescape quotes and escape sequences
     cleaned = cleaned.replace(/\\"/g, '"');
     cleaned = cleaned.replace(/\\'/g, "'");
+    cleaned = cleaned.replace(/\\n/g, '\n');
+    cleaned = cleaned.replace(/\\t/g, '\t');
+    cleaned = cleaned.replace(/\\r/g, '\r');
 
     // Remove multiple newlines
     cleaned = cleaned.replace(/\n{3,}/g, '\n\n');

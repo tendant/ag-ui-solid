@@ -18,6 +18,7 @@ export default defineConfig({
       fileName: 'index',
       formats: ['es']
     },
+    cssCodeSplit: false, // Keep CSS in a single file
     rollupOptions: {
       external: ['solid-js', 'solid-js/web', 'solid-js/store', '@kobalte/core', 'lucide-solid'],
       output: {
@@ -25,6 +26,11 @@ export default defineConfig({
           'solid-js': 'SolidJS',
           '@kobalte/core': 'KobalteCore',
           'lucide-solid': 'LucideSolid'
+        },
+        // Inject CSS import into the bundle
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name === 'style.css') return 'style.css';
+          return assetInfo.name || 'assets/[name][extname]';
         }
       }
     }

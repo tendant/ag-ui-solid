@@ -69,9 +69,12 @@ export const Message: Component<MessageProps> = (props) => {
     return cleaned.trim();
   };
 
+  // Track content changes explicitly for streaming updates
+  const content = () => props.message.content;
+
   // Render markdown content
   const markdownHtml = createMemo(() => {
-    const cleaned = cleanContent(props.message.content);
+    const cleaned = cleanContent(content());
     return marked(cleaned) as string;
   });
 

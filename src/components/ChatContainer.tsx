@@ -1,4 +1,4 @@
-import { Component, For, Show, onMount, createEffect } from 'solid-js';
+import { Component, Index, Show, onMount, createEffect } from 'solid-js';
 import type { Message as MessageType } from '../types';
 import { Message } from './Message';
 import { Composer } from './Composer';
@@ -52,9 +52,9 @@ export const ChatContainer: Component<ChatContainerProps> = (props) => {
             </div>
           }
         >
-          <For each={props.messages}>
-            {(message) => <Message message={message} />}
-          </For>
+          <Index each={props.messages}>
+            {(message) => <Message message={message()} />}
+          </Index>
           <div ref={messagesEndRef} />
         </Show>
 

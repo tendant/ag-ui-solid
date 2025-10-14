@@ -18,6 +18,9 @@ export const ChatContainer: Component<ChatContainerProps> = (props) => {
   let messagesEndRef: HTMLDivElement | undefined;
   let containerRef: HTMLDivElement | undefined;
 
+  // Debug logging
+  console.log('[ChatContainer] Rendering with messages count:', props.messages?.length);
+
   const scrollToBottom = () => {
     if (props.autoScroll !== false && messagesEndRef) {
       messagesEndRef.scrollIntoView({ behavior: 'smooth' });
@@ -42,7 +45,10 @@ export const ChatContainer: Component<ChatContainerProps> = (props) => {
         class="flex-1 min-h-0 overflow-y-auto p-4 space-y-4 custom-scrollbar"
       >
         <Index each={props.messages}>
-          {(message) => <Message message={message()} />}
+          {(message, index) => {
+            console.log('[ChatContainer] Rendering message at index:', index(), 'id:', message().id);
+            return <Message message={message()} />;
+          }}
         </Index>
         <Show when={props.messages.length === 0}>
           <div class="flex items-center justify-center h-full text-gray-400">

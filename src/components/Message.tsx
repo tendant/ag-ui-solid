@@ -16,6 +16,9 @@ export interface MessageProps {
 }
 
 export const Message: Component<MessageProps> = (props) => {
+  // Debug logging
+  console.log('[Message] Rendering message:', props.message.id, 'role:', props.message.role, 'content length:', props.message.content?.length);
+
   const getRoleStyles = () => {
     switch (props.message.role) {
       case 'user':
@@ -98,7 +101,9 @@ export const Message: Component<MessageProps> = (props) => {
               {props.message.role}
             </span>
             <span class="text-xs opacity-75 ml-auto">
-              {props.message.timestamp.toLocaleTimeString()}
+              {props.message.timestamp instanceof Date
+                ? props.message.timestamp.toLocaleTimeString()
+                : new Date(props.message.timestamp).toLocaleTimeString()}
             </span>
           </div>
           <div

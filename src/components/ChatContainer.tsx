@@ -46,7 +46,7 @@ export const ChatContainer: Component<ChatContainerProps> = (props) => {
       >
         <Index each={props.messages}>
           {(message, index) => {
-            console.log('[ChatContainer] Rendering message at index:', index(), 'id:', message().id);
+            console.log('[ChatContainer] Rendering message at index:', index, 'id:', message().id);
             return <Message message={message()} />;
           }}
         </Index>

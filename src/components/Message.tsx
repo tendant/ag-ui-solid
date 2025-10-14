@@ -80,6 +80,16 @@ export const Message: Component<MessageProps> = (props) => {
 
   return (
     <div class={`flex flex-col gap-2 ${props.class || ''}`}>
+      {/* Tool results FIRST */}
+      <Show when={props.message.toolResults && props.message.toolResults.length > 0}>
+        <div class="ml-4 mr-4">
+          <For each={props.message.toolResults}>
+            {(toolResult) => <ToolResult toolResult={toolResult} />}
+          </For>
+        </div>
+      </Show>
+
+      {/* Message content SECOND */}
       <div class={`flex ${props.message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
         <div class={`rounded-lg px-4 py-3 max-w-[80%] ${getRoleStyles()}`}>
           <div class="flex items-center gap-2 mb-1">
@@ -97,14 +107,6 @@ export const Message: Component<MessageProps> = (props) => {
           />
         </div>
       </div>
-
-      <Show when={props.message.toolResults && props.message.toolResults.length > 0}>
-        <div class="ml-4 mr-4">
-          <For each={props.message.toolResults}>
-            {(toolResult) => <ToolResult toolResult={toolResult} />}
-          </For>
-        </div>
-      </Show>
     </div>
   );
 };

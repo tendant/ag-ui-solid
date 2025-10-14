@@ -41,22 +41,18 @@ export const ChatContainer: Component<ChatContainerProps> = (props) => {
         ref={containerRef}
         class="flex-1 min-h-0 overflow-y-auto p-4 space-y-4 custom-scrollbar"
       >
-        <Show
-          when={props.messages.length > 0}
-          fallback={
-            <div class="flex items-center justify-center h-full text-gray-400">
-              <div class="text-center">
-                <div class="text-4xl mb-2">💬</div>
-                <p class="text-sm">No messages yet. Start a conversation!</p>
-              </div>
+        <Index each={props.messages}>
+          {(message) => <Message message={message()} />}
+        </Index>
+        <Show when={props.messages.length === 0}>
+          <div class="flex items-center justify-center h-full text-gray-400">
+            <div class="text-center">
+              <div class="text-4xl mb-2">💬</div>
+              <p class="text-sm">No messages yet. Start a conversation!</p>
             </div>
-          }
-        >
-          <Index each={props.messages}>
-            {(message) => <Message message={message()} />}
-          </Index>
-          <div ref={messagesEndRef} />
+          </div>
         </Show>
+        <div ref={messagesEndRef} />
 
         <Show when={props.isStreaming}>
           <div class="flex items-center gap-2 text-gray-500 text-sm">

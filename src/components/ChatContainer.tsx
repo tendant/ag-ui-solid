@@ -1,4 +1,4 @@
-import { Component, Index, Show, onMount, createEffect } from 'solid-js';
+import { Component, Show, onMount, createEffect, For, createMemo } from 'solid-js';
 import type { Message as MessageType } from '../types';
 import { Message } from './Message';
 import { Composer } from './Composer';
@@ -18,8 +18,11 @@ export const ChatContainer: Component<ChatContainerProps> = (props) => {
   let messagesEndRef: HTMLDivElement | undefined;
   let containerRef: HTMLDivElement | undefined;
 
-  // Debug logging
-  console.log('[ChatContainer] Rendering with messages count:', props.messages?.length);
+  // Create a memo to force reactivity tracking
+  const messagesList = createMemo(() => {
+    console.log('[ChatContainer] messagesList memo updating, count:', props.messages?.length);
+    return props.messages || [];
+  });
 
   const scrollToBottom = () => {
     if (props.autoScroll !== false && messagesEndRef) {
@@ -33,7 +36,7 @@ export const ChatContainer: Component<ChatContainerProps> = (props) => {
 
   createEffect(() => {
     // Trigger scroll when messages change
-    props.messages.length;
+    messagesList().length;
     scrollToBottom();
   });
 
@@ -44,13 +47,14 @@ export const ChatContainer: Component<ChatContainerProps> = (props) => {
         ref={containerRef}
         class="flex-1 min-h-0 overflow-y-auto p-4 space-y-4 custom-scrollbar"
       >
-        <Index each={props.messages}>
-          {(message, index) => {
-            console.log('[ChatContainer] Rendering message at index:', index, 'id:', message().id);
-            return <Message message={message()} />;
+        {/* Use For with memo for proper reactivity */}
+        <For each={messagesList()}>
+          {(message) => {
+            console.log('[ChatContainer] Rendering message:', message.id);
+            return <Message message={message} />;
           }}
-        </Index>
-        <Show when={props.messages.length === 0}>
+        </For>
+        <Show when={messagesList().length === 0}>
           <div class="flex items-center justify-center h-full text-gray-400">
             <div class="text-center">
               <div class="text-4xl mb-2">💬</div>

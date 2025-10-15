@@ -13,7 +13,7 @@ A modern SolidJS component library for building AI chat interfaces with Tailwind
 ## Installation
 
 ```bash
-npm install ag-ui-solid solid-js
+npm install @tendant/ag-ui-solid solid-js
 ```
 
 Make sure you have TailwindCSS configured in your project. See [Getting Started Guide](./GETTING_STARTED.md) for detailed setup instructions.
@@ -21,7 +21,7 @@ Make sure you have TailwindCSS configured in your project. See [Getting Started 
 ## Quick Start
 
 ```tsx
-import { ChatContainer, useChatStream } from 'ag-ui-solid';
+import { ChatContainer, useChatStream } from '@tendant/ag-ui-solid';
 
 function App() {
   const [state, actions] = useChatStream({
@@ -199,7 +199,7 @@ The library includes tests for:
 
 **Simple Chat:**
 ```tsx
-import { ChatContainer, useChatStream } from 'ag-ui-solid';
+import { ChatContainer, useChatStream } from '@tendant/ag-ui-solid';
 
 const App = () => {
   const [state, actions] = useChatStream({ apiEndpoint: '/api/chat' });
@@ -219,7 +219,7 @@ const App = () => {
 
 **Individual Components:**
 ```tsx
-import { Message, Composer, ToolResult } from 'ag-ui-solid';
+import { Message, Composer, ToolResult } from '@tendant/ag-ui-solid';
 
 // Use components separately for full customization
 <div>
@@ -243,7 +243,7 @@ Other applications can integrate ag-ui-solid in several ways:
 ### 1. As a Complete Chat Interface
 
 ```bash
-npm install ag-ui-solid solid-js
+npm install @tendant/ag-ui-solid solid-js
 ```
 
 Then use `ChatContainer` with `useChatStream()` for a full-featured chat (see [Getting Started](./GETTING_STARTED.md)).
@@ -253,7 +253,7 @@ Then use `ChatContainer` with `useChatStream()` for a full-featured chat (see [G
 Import only the components you need:
 
 ```tsx
-import { Message, Composer } from 'ag-ui-solid';
+import { Message, Composer } from '@tendant/ag-ui-solid';
 // Build your own layout
 ```
 
@@ -262,7 +262,7 @@ import { Message, Composer } from 'ag-ui-solid';
 Use the components with your existing state:
 
 ```tsx
-import { ChatContainer } from 'ag-ui-solid';
+import { ChatContainer } from '@tendant/ag-ui-solid';
 
 const MyApp = () => {
   const [messages, setMessages] = myCustomStore();

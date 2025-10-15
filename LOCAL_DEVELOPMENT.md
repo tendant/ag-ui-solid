@@ -1,6 +1,6 @@
-# Local Development - Using ag-ui-solid Without Publishing to npm
+# Local Development - Using @tendant/ag-ui-solid Without Publishing to npm
 
-This guide shows how to use ag-ui-solid in other applications during local development without publishing to npm.
+This guide shows how to use @tendant/ag-ui-solid in other applications during local development without publishing to npm.
 
 ## Table of Contents
 
@@ -17,10 +17,10 @@ The `npm link` command creates a symbolic link, making the library available glo
 
 ### Step-by-Step
 
-**1. In the ag-ui-solid directory:**
+**1. In the @tendant/ag-ui-solid directory:**
 
 ```bash
-cd /Users/lei/workspace/gen-ai/ag-ui-solid
+cd /Users/lei/workspace/fi/ag-ui-solid
 
 # Build the library first
 npm run build
@@ -34,14 +34,14 @@ npm link
 ```bash
 cd /path/to/your-app
 
-# Link the ag-ui-solid package
-npm link ag-ui-solid
+# Link the @tendant/ag-ui-solid package
+npm link @tendant/ag-ui-solid
 ```
 
 **3. Use it in your app:**
 
 ```tsx
-import { ChatContainer, useChatStream } from 'ag-ui-solid';
+import { ChatContainer, useChatStream } from '@tendant/ag-ui-solid';
 
 const App = () => {
   const [state, actions] = useChatStream({ apiEndpoint: '/api/chat' });
@@ -72,9 +72,9 @@ When you're done:
 
 ```bash
 # In your application
-npm unlink ag-ui-solid
+npm unlink @tendant/ag-ui-solid
 
-# In ag-ui-solid directory
+# In @tendant/ag-ui-solid directory
 npm unlink
 ```
 
@@ -89,7 +89,7 @@ Install the library directly from the file system.
 ```json
 {
   "dependencies": {
-    "ag-ui-solid": "file:../ag-ui-solid",
+    "@tendant/ag-ui-solid": "file:../ag-ui-solid",
     "solid-js": "^1.8.11"
   }
 }
@@ -113,8 +113,8 @@ npm install
 ### Development Workflow
 
 ```bash
-# 1. Make changes in ag-ui-solid
-cd /Users/lei/workspace/gen-ai/ag-ui-solid
+# 1. Make changes in @tendant/ag-ui-solid
+cd /Users/lei/workspace/fi/ag-ui-solid
 npm run build
 
 # 2. Reinstall in your app
@@ -130,7 +130,7 @@ After making changes:
 # Force reinstall
 npm install --force
 # or
-rm -rf node_modules/ag-ui-solid
+rm -rf node_modules/@tendant/ag-ui-solid
 npm install
 ```
 
@@ -145,7 +145,7 @@ Create a workspace structure:
 ```
 my-project/
 ├── packages/
-│   ├── ag-ui-solid/          # The library
+│   ├── ag-ui-solid/          # The library (@tendant/ag-ui-solid)
 │   └── my-app/               # Your application
 └── package.json              # Root package.json
 ```
@@ -168,7 +168,7 @@ my-project/
 {
   "name": "my-app",
   "dependencies": {
-    "ag-ui-solid": "*",
+    "@tendant/ag-ui-solid": "*",
     "solid-js": "^1.8.11"
   }
 }
@@ -217,10 +217,10 @@ Manually copy the built library to your project.
 
 ### Setup
 
-**1. Build ag-ui-solid:**
+**1. Build @tendant/ag-ui-solid:**
 
 ```bash
-cd /Users/lei/workspace/gen-ai/ag-ui-solid
+cd /Users/lei/workspace/fi/ag-ui-solid
 npm run build
 ```
 
@@ -232,8 +232,8 @@ cd /path/to/your-app
 mkdir -p local-packages/ag-ui-solid
 
 # Copy the built files
-cp -r /Users/lei/workspace/gen-ai/ag-ui-solid/dist local-packages/ag-ui-solid/
-cp /Users/lei/workspace/gen-ai/ag-ui-solid/package.json local-packages/ag-ui-solid/
+cp -r /Users/lei/workspace/fi/ag-ui-solid/dist local-packages/ag-ui-solid/
+cp /Users/lei/workspace/fi/ag-ui-solid/package.json local-packages/ag-ui-solid/
 ```
 
 **3. Install from local directory:**
@@ -241,7 +241,7 @@ cp /Users/lei/workspace/gen-ai/ag-ui-solid/package.json local-packages/ag-ui-sol
 ```json
 {
   "dependencies": {
-    "ag-ui-solid": "file:./local-packages/ag-ui-solid"
+    "@tendant/ag-ui-solid": "file:./local-packages/ag-ui-solid"
   }
 }
 ```
@@ -261,7 +261,7 @@ For real-time development without rebuilding.
 
 ### Option 1: Watch Mode with npm link
 
-**1. In ag-ui-solid, add watch script to package.json:**
+**1. In @tendant/ag-ui-solid, add watch script to package.json:**
 
 ```json
 {
@@ -276,7 +276,7 @@ For real-time development without rebuilding.
 **2. Run in watch mode:**
 
 ```bash
-cd /Users/lei/workspace/gen-ai/ag-ui-solid
+cd /Users/lei/workspace/fi/ag-ui-solid
 npm link
 npm run build:watch
 ```
@@ -284,11 +284,11 @@ npm run build:watch
 **3. In your app:**
 
 ```bash
-npm link ag-ui-solid
+npm link @tendant/ag-ui-solid
 npm run dev
 ```
 
-Now changes in ag-ui-solid will automatically rebuild and update in your app!
+Now changes in @tendant/ag-ui-solid will automatically rebuild and update in your app!
 
 ### Option 2: Direct Source Import (Advanced)
 
@@ -305,7 +305,7 @@ export default defineConfig({
   plugins: [solidPlugin()],
   resolve: {
     alias: {
-      'ag-ui-solid': path.resolve(__dirname, '../ag-ui-solid/src')
+      '@tendant/ag-ui-solid': path.resolve(__dirname, '../ag-ui-solid/src')
     }
   }
 });
@@ -314,7 +314,7 @@ export default defineConfig({
 **Import directly:**
 
 ```tsx
-import { ChatContainer } from 'ag-ui-solid/index.tsx';
+import { ChatContainer } from '@tendant/ag-ui-solid/index.tsx';
 ```
 
 **Advantages:**
@@ -331,14 +331,14 @@ import { ChatContainer } from 'ag-ui-solid/index.tsx';
 ### Example 1: Quick Test Setup
 
 ```bash
-# Terminal 1: ag-ui-solid
-cd /Users/lei/workspace/gen-ai/ag-ui-solid
+# Terminal 1: @tendant/ag-ui-solid
+cd /Users/lei/workspace/fi/ag-ui-solid
 npm run build
 npm link
 
 # Terminal 2: your app
 cd ~/projects/my-chat-app
-npm link ag-ui-solid
+npm link @tendant/ag-ui-solid
 npm run dev
 
 # Make changes, rebuild, refresh browser
@@ -347,13 +347,13 @@ npm run dev
 ### Example 2: Active Development
 
 ```bash
-# Terminal 1: ag-ui-solid (watch mode)
-cd /Users/lei/workspace/gen-ai/ag-ui-solid
+# Terminal 1: @tendant/ag-ui-solid (watch mode)
+cd /Users/lei/workspace/fi/ag-ui-solid
 npm run build:watch
 
 # Terminal 2: your app
 cd ~/projects/my-chat-app
-npm link ag-ui-solid
+npm link @tendant/ag-ui-solid
 npm run dev
 
 # Changes auto-rebuild and update!
@@ -366,8 +366,8 @@ npm run dev
 mkdir my-project
 cd my-project
 
-# Move or clone ag-ui-solid
-mv /Users/lei/workspace/gen-ai/ag-ui-solid ./packages/
+# Move or clone @tendant/ag-ui-solid
+mv /Users/lei/workspace/fi/ag-ui-solid ./packages/
 
 # Create app
 mkdir -p packages/my-app
@@ -384,20 +384,20 @@ EOF
 # Install everything
 npm install
 
-# Now ag-ui-solid is automatically linked!
+# Now @tendant/ag-ui-solid is automatically linked!
 cd packages/my-app
 npm run dev
 ```
 
 ## Troubleshooting
 
-### Issue: "Cannot find module 'ag-ui-solid'"
+### Issue: "Cannot find module '@tendant/ag-ui-solid'"
 
 **Solution:**
 
 ```bash
 # Rebuild the library
-cd /Users/lei/workspace/gen-ai/ag-ui-solid
+cd /Users/lei/workspace/fi/ag-ui-solid
 npm run build
 
 # Relink
@@ -405,7 +405,7 @@ npm link
 
 # In your app
 cd /path/to/your-app
-npm link ag-ui-solid
+npm link @tendant/ag-ui-solid
 ```
 
 ### Issue: "Module not found" after linking
@@ -413,7 +413,7 @@ npm link ag-ui-solid
 **Solution:** Check that the library is built:
 
 ```bash
-ls /Users/lei/workspace/gen-ai/ag-ui-solid/dist
+ls /Users/lei/workspace/fi/ag-ui-solid/dist
 # Should show: index.js, index.d.ts, styles.css
 ```
 
@@ -425,7 +425,7 @@ If empty, run `npm run build`.
 
 ```bash
 # 1. Rebuild the library
-cd /Users/lei/workspace/gen-ai/ag-ui-solid
+cd /Users/lei/workspace/fi/ag-ui-solid
 npm run build
 
 # 2. Hard refresh your app
@@ -447,7 +447,7 @@ npm list solid-js
 
 # Should show only one version
 # If multiple, remove duplicates
-cd /Users/lei/workspace/gen-ai/ag-ui-solid
+cd /Users/lei/workspace/fi/ag-ui-solid
 npm uninstall solid-js
 ```
 
@@ -457,7 +457,7 @@ npm uninstall solid-js
 
 ```bash
 # Make sure types are built
-cd /Users/lei/workspace/gen-ai/ag-ui-solid
+cd /Users/lei/workspace/fi/ag-ui-solid
 npm run build
 
 # Check dist folder
@@ -470,7 +470,7 @@ ls dist/index.d.ts  # Should exist
 
 ```tsx
 // In your main entry file
-import 'ag-ui-solid/dist/styles.css';
+import '@tendant/ag-ui-solid/dist/styles.css';
 ```
 
 Or with file path:
@@ -484,7 +484,7 @@ import '../path/to/ag-ui-solid/dist/styles.css';
 ### 1. Always Build Before Linking
 
 ```bash
-cd /Users/lei/workspace/gen-ai/ag-ui-solid
+cd /Users/lei/workspace/fi/ag-ui-solid
 npm run build
 npm link
 ```
@@ -510,9 +510,9 @@ This helps track what version your app is using.
 In your app's README:
 
 ```markdown
-## Local Development with ag-ui-solid
+## Local Development with @tendant/ag-ui-solid
 
-This project uses a local version of ag-ui-solid:
+This project uses a local version of @tendant/ag-ui-solid:
 
 \`\`\`bash
 cd ../ag-ui-solid
@@ -520,7 +520,7 @@ npm run build
 npm link
 
 cd ../my-app
-npm link ag-ui-solid
+npm link @tendant/ag-ui-solid
 \`\`\`
 ```
 
@@ -536,7 +536,7 @@ AG_UI_SOLID_PATH=../ag-ui-solid
 ```json
 {
   "dependencies": {
-    "ag-ui-solid": "file:${AG_UI_SOLID_PATH}"
+    "@tendant/ag-ui-solid": "file:${AG_UI_SOLID_PATH}"
   }
 }
 ```

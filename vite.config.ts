@@ -14,7 +14,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: './src/index.tsx',
-      name: 'AgUiSolid',
+      name: '@tendant/ag-ui-solid',
       fileName: 'index',
       formats: ['es']
     },

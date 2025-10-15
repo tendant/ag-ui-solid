@@ -42,12 +42,12 @@ npm run unlink:local       # Unlink library (runs ./scripts/unlink-local.sh)
 
 For using this library in other apps without publishing to npm, use `npm link` workflow:
 ```bash
-# In ag-ui-solid directory
+# In @tendant/ag-ui-solid directory
 npm run build
 npm link
 
 # In consuming app
-npm link ag-ui-solid
+npm link @tendant/ag-ui-solid
 ```
 
 ## Architecture
@@ -153,7 +153,7 @@ For active development on both library and consuming app:
 npm run build:watch
 
 # Terminal 2: Consuming app
-npm link ag-ui-solid
+npm link @tendant/ag-ui-solid
 npm run dev
 ```
 

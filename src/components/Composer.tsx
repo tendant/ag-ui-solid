@@ -1,4 +1,4 @@
-import { Component, createSignal, Show, createEffect } from 'solid-js';
+import { Component, createSignal, Show } from 'solid-js';
 import { TextField } from '@kobalte/core/text-field';
 import { Send } from 'lucide-solid';
 
@@ -36,18 +36,6 @@ export const Composer: Component<ComposerProps> = (props) => {
     }
   };
 
-  // Watch for when input becomes re-enabled and restore focus
-  createEffect((prev) => {
-    const isDisabled = props.isDisabled;
-    if (prev === true && isDisabled === false && textareaRef) {
-      // Input just became enabled, restore focus
-      requestAnimationFrame(() => {
-        textareaRef?.focus();
-      });
-    }
-    return isDisabled;
-  });
-
   const characterCount = () => inputValue().length;
   const isNearLimit = () => props.maxLength ? characterCount() > props.maxLength * 0.9 : false;
   const isOverLimit = () => props.maxLength ? characterCount() > props.maxLength : false;
@@ -60,14 +48,13 @@ export const Composer: Component<ComposerProps> = (props) => {
       <TextField
         value={inputValue()}
         onChange={setInputValue}
-        disabled={props.isDisabled}
       >
         <div
           class={`flex items-start gap-2 border rounded-lg p-2 transition-colors ${
             isFocused()
               ? 'border-blue-500 ring-2 ring-blue-200'
               : 'border-gray-300'
-          } ${props.isDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+          }`}
         >
           <TextField.TextArea
             ref={textareaRef}

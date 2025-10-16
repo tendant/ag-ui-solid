@@ -95,14 +95,21 @@ describe('Composer', () => {
     expect(handleSend).not.toHaveBeenCalled();
   });
 
-  it('disables textarea and button when isDisabled is true', () => {
+  it('disables button but allows typing when isDisabled is true', async () => {
+    const user = userEvent.setup();
     render(() => <Composer onSend={() => {}} isDisabled={true} />);
 
     const textarea = screen.getByPlaceholderText('Type a message...');
     const button = screen.getByRole('button');
 
-    expect(textarea).toBeDisabled();
+    // Textarea should remain enabled to allow typing
+    expect(textarea).not.toBeDisabled();
+    // Button should be disabled to prevent submission
     expect(button).toBeDisabled();
+
+    // User should be able to type even when disabled
+    await user.type(textarea, 'Typing while waiting');
+    expect(textarea).toHaveValue('Typing while waiting');
   });
 
   it('shows loading indicator when disabled', () => {

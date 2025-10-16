@@ -89,7 +89,8 @@ describe('ChatContainer', () => {
     expect(screen.getByText('Assistant is typing...')).toBeInTheDocument();
   });
 
-  it('disables composer when streaming', () => {
+  it('disables send button but allows typing when streaming', async () => {
+    const user = userEvent.setup();
     render(() => (
       <ChatContainer
         messages={[]}
@@ -99,7 +100,16 @@ describe('ChatContainer', () => {
     ));
 
     const textarea = screen.getByPlaceholderText('Type a message...');
-    expect(textarea).toBeDisabled();
+    const button = screen.getByRole('button');
+
+    // Textarea should remain enabled to allow typing
+    expect(textarea).not.toBeDisabled();
+    // Button should be disabled to prevent submission
+    expect(button).toBeDisabled();
+
+    // User should be able to type even when streaming
+    await user.type(textarea, 'Typing while waiting');
+    expect(textarea).toHaveValue('Typing while waiting');
   });
 
   it('displays error message when error is provided', () => {

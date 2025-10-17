@@ -428,7 +428,7 @@ import type { Message, ToolResult } from 'ag-ui-solid';
 
 ## Getting Help
 
-- GitHub Issues: https://github.com/yourusername/ag-ui-solid/issues
+- GitHub Issues: https://github.com/tendant/ag-ui-solid/issues
 - Documentation: See README.md, USAGE.md, TESTING.md
 - Examples: See `examples/` directory
 

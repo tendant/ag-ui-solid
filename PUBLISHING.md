@@ -25,12 +25,12 @@ Edit `package.json` to add/update:
   "author": "Your Name <your.email@example.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/ag-ui-solid.git"
+    "url": "https://github.com/tendant/ag-ui-solid.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/ag-ui-solid/issues"
+    "url": "https://github.com/tendant/ag-ui-solid/issues"
   },
-  "homepage": "https://github.com/yourusername/ag-ui-solid#readme"
+  "homepage": "https://github.com/tendant/ag-ui-solid#readme"
 }
 ```
 
@@ -350,7 +350,7 @@ git push origin main
 git push --tags
 
 # 5. Create GitHub release
-# Go to https://github.com/yourusername/ag-ui-solid/releases/new
+# Go to https://github.com/tendant/ag-ui-solid/releases/new
 # Select tag: v0.2.0
 # Title: "v0.2.0 - Internationalization Support"
 # Description:

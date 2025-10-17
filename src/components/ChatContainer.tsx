@@ -2,6 +2,7 @@ import { Component, Show, onMount, createEffect, For, createMemo } from 'solid-j
 import type { Message as MessageType } from '../types';
 import { Message } from './Message';
 import { Composer } from './Composer';
+import { useI18n } from '../i18n';
 
 export interface ChatContainerProps {
   messages: MessageType[];
@@ -15,6 +16,7 @@ export interface ChatContainerProps {
 }
 
 export const ChatContainer: Component<ChatContainerProps> = (props) => {
+  const { t } = useI18n();
   let messagesEndRef: HTMLDivElement | undefined;
   let containerRef: HTMLDivElement | undefined;
 
@@ -58,7 +60,7 @@ export const ChatContainer: Component<ChatContainerProps> = (props) => {
           <div class="flex items-center justify-center h-full text-gray-400">
             <div class="text-center">
               <div class="text-4xl mb-2">💬</div>
-              <p class="text-sm">No messages yet. Start a conversation!</p>
+              <p class="text-sm">{t('chat.noMessages', {}, 'No messages yet. Start a conversation!')}</p>
             </div>
           </div>
         </Show>
@@ -71,7 +73,7 @@ export const ChatContainer: Component<ChatContainerProps> = (props) => {
               <span class="animate-bounce" style={{ "animation-delay": "150ms" }}>●</span>
               <span class="animate-bounce" style={{ "animation-delay": "300ms" }}>●</span>
             </div>
-            <span>Assistant is typing...</span>
+            <span>{t('chat.typing')}</span>
           </div>
         </Show>
       </div>
@@ -80,7 +82,7 @@ export const ChatContainer: Component<ChatContainerProps> = (props) => {
       <Show when={props.error}>
         <div class="px-4 py-2 bg-red-50 border-t border-red-200 text-red-800 text-sm">
           <div class="flex items-center gap-2">
-            <span class="font-semibold">Error:</span>
+            <span class="font-semibold">{t('chat.errorOccurred')}:</span>
             <span>{props.error}</span>
           </div>
         </div>

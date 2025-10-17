@@ -1,6 +1,7 @@
 import { Component, Show, createSignal } from 'solid-js';
 import { CheckCircle, XCircle, Loader, Circle, ChevronDown, ChevronUp } from 'lucide-solid';
 import type { ToolResult as ToolResultType } from '../types';
+import { useI18n } from '../i18n';
 
 export interface ToolResultProps {
   toolResult: ToolResultType;
@@ -9,6 +10,7 @@ export interface ToolResultProps {
 }
 
 export const ToolResult: Component<ToolResultProps> = (props) => {
+  const { t } = useI18n();
   const [isExpanded, setIsExpanded] = createSignal(props.defaultExpanded ?? false);
 
   // Convert escaped characters to actual characters for proper display
@@ -70,7 +72,7 @@ export const ToolResult: Component<ToolResultProps> = (props) => {
         <div class="mt-3 pt-3 border-t border-current border-opacity-20">
           <Show when={Object.keys(props.toolResult.input).length > 0}>
             <div class="mb-3">
-              <div class="text-xs font-semibold mb-1 opacity-75">Input:</div>
+              <div class="text-xs font-semibold mb-1 opacity-75">{t('toolResult.input')}:</div>
               <pre class="text-xs bg-white bg-opacity-50 rounded p-2 overflow-x-auto">
                 {JSON.stringify(props.toolResult.input, null, 2)}
               </pre>
@@ -79,7 +81,7 @@ export const ToolResult: Component<ToolResultProps> = (props) => {
 
           <Show when={props.toolResult.output}>
             <div>
-              <div class="text-xs font-semibold mb-1 opacity-75">Output:</div>
+              <div class="text-xs font-semibold mb-1 opacity-75">{t('toolResult.output')}:</div>
               <pre class="text-xs bg-white bg-opacity-50 rounded p-2 overflow-x-auto whitespace-pre-wrap break-words">
                 {formatOutput(props.toolResult.output)}
               </pre>

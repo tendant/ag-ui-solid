@@ -7,7 +7,10 @@
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "style": "./dist/style.css",
-  "sideEffects": ["./dist/style.css", "*.css"],
+  "sideEffects": [
+    "./dist/style.css",
+    "*.css"
+  ],
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -67,7 +70,7 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "@solid-primitives/i18n": "^2.2.1",
     "marked": "^16.4.0"
   }
 }
-

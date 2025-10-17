@@ -23,5 +23,10 @@ export type {
   ChatStreamActions
 } from './types';
 
+// I18n
+export { I18nProvider, useI18n } from './i18n';
+export type { I18nProviderProps, SupportedLocale, TranslationDict } from './i18n';
+export { translations, en, zh } from './i18n';
+
 // Styles
 import './styles.css';

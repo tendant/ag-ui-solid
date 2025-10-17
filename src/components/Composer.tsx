@@ -1,6 +1,7 @@
 import { Component, createSignal, Show } from 'solid-js';
 import { TextField } from '@kobalte/core/text-field';
 import { Send } from 'lucide-solid';
+import { useI18n } from '../i18n';
 
 export interface ComposerProps {
   onSend: (message: string) => void;
@@ -11,6 +12,7 @@ export interface ComposerProps {
 }
 
 export const Composer: Component<ComposerProps> = (props) => {
+  const { t } = useI18n();
   const [inputValue, setInputValue] = createSignal('');
   const [isFocused, setIsFocused] = createSignal(false);
   let textareaRef: HTMLTextAreaElement | undefined;
@@ -61,7 +63,7 @@ export const Composer: Component<ComposerProps> = (props) => {
             onKeyDown={handleKeyDown}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
-            placeholder={props.placeholder || 'Type a message...'}
+            placeholder={props.placeholder || t('composer.placeholder')}
             class="flex-1 resize-none bg-transparent outline-none min-h-[40px] max-h-[200px] text-sm"
             rows={1}
             autoResize
@@ -79,10 +81,10 @@ export const Composer: Component<ComposerProps> = (props) => {
             <Show when={props.isDisabled} fallback={
               <>
                 <Send size={16} />
-                <span>Send</span>
+                <span>{t('composer.send')}</span>
               </>
             }>
-              <span class="animate-pulse">...</span>
+              <span class="animate-pulse">{t('composer.sending')}</span>
             </Show>
           </button>
         </div>

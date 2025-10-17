@@ -3,6 +3,7 @@ import { marked } from 'marked';
 import { User, Bot, Settings } from 'lucide-solid';
 import type { Message as MessageType } from '../types';
 import { ToolResult } from './ToolResult';
+import { useI18n } from '../i18n';
 
 // Configure marked for safe rendering
 marked.setOptions({
@@ -16,6 +17,8 @@ export interface MessageProps {
 }
 
 export const Message: Component<MessageProps> = (props) => {
+  const { t } = useI18n();
+
   // Debug logging
   console.log('[Message] Rendering message:', props.message.id, 'role:', props.message.role, 'content length:', props.message.content?.length);
 
@@ -98,7 +101,7 @@ export const Message: Component<MessageProps> = (props) => {
           <div class="flex items-center gap-2 mb-1">
             <div class="flex items-center">{getRoleIcon()}</div>
             <span class="text-xs font-semibold capitalize opacity-90">
-              {props.message.role}
+              {t(`message.${props.message.role}` as any, {}, props.message.role)}
             </span>
             <span class="text-xs opacity-75 ml-auto">
               {props.message.timestamp instanceof Date

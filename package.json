@@ -1,6 +1,6 @@
 {
   "name": "@tendant/ag-ui-solid",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A SolidJS component library for AI chat interfaces",
   "type": "module",
   "main": "./dist/index.js",

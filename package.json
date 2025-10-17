@@ -33,7 +33,12 @@
     "test:coverage": "vitest --coverage",
     "link:local": "./scripts/link-local.sh",
     "unlink:local": "./scripts/unlink-local.sh",
-    "dev:watch": "./scripts/dev-watch.sh"
+    "dev:watch": "./scripts/dev-watch.sh",
+    "prepublishOnly": "npm test && npm run build",
+    "release": "./scripts/release.sh",
+    "release:patch": "./scripts/release.sh patch",
+    "release:minor": "./scripts/release.sh minor",
+    "release:major": "./scripts/release.sh major"
   },
   "peerDependencies": {
     "@kobalte/core": "^0.13.0",

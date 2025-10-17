@@ -86,7 +86,7 @@ describe('ChatContainer', () => {
       />
     ));
 
-    expect(screen.getByText('Assistant is typing...')).toBeInTheDocument();
+    expect(screen.getByText('Typing...')).toBeInTheDocument();
   });
 
   it('disables send button but allows typing when streaming', async () => {
@@ -121,7 +121,7 @@ describe('ChatContainer', () => {
       />
     ));
 
-    expect(screen.getByText('Error:')).toBeInTheDocument();
+    expect(screen.getByText('An error occurred:')).toBeInTheDocument();
     expect(screen.getByText('Something went wrong')).toBeInTheDocument();
   });
 
@@ -134,7 +134,7 @@ describe('ChatContainer', () => {
       />
     ));
 
-    expect(screen.queryByText('Error:')).not.toBeInTheDocument();
+    expect(screen.queryByText('An error occurred:')).not.toBeInTheDocument();
   });
 
   it('uses custom placeholder', () => {
@@ -239,7 +239,7 @@ describe('ChatContainer', () => {
     ));
 
     expect(screen.getByText('Existing message')).toBeInTheDocument();
-    expect(screen.getByText('Assistant is typing...')).toBeInTheDocument();
+    expect(screen.getByText('Typing...')).toBeInTheDocument();
   });
 
   it('renders with both error and streaming state', () => {
@@ -253,6 +253,6 @@ describe('ChatContainer', () => {
     ));
 
     expect(screen.getByText('Previous error')).toBeInTheDocument();
-    expect(screen.getByText('Assistant is typing...')).toBeInTheDocument();
+    expect(screen.getByText('Typing...')).toBeInTheDocument();
   });
 });

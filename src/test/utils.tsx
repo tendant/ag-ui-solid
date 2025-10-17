@@ -1,11 +1,18 @@
 import { render as solidRender } from '@solidjs/testing-library';
 import type { JSX } from 'solid-js';
+import { I18nProvider } from '../i18n';
 
 /**
  * Custom render function that wraps the component with any necessary providers
  */
 export function render(ui: () => JSX.Element, options = {}) {
-  const result = solidRender(ui, {
+  const Wrapper = () => (
+    <I18nProvider locale="en">
+      {ui()}
+    </I18nProvider>
+  );
+
+  const result = solidRender(Wrapper, {
     ...options,
     // Ensure each test gets a fresh container
     container: document.body.appendChild(document.createElement('div'))

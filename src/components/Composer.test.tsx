@@ -115,7 +115,7 @@ describe('Composer', () => {
   it('shows loading indicator when disabled', () => {
     render(() => <Composer onSend={() => {}} isDisabled={true} />);
 
-    expect(screen.getByText('...')).toBeInTheDocument();
+    expect(screen.getByText('Sending...')).toBeInTheDocument();
   });
 
   it('disables send button when input is empty', () => {

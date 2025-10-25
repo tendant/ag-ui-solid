@@ -34,7 +34,7 @@
     "link:local": "./scripts/link-local.sh",
     "unlink:local": "./scripts/unlink-local.sh",
     "dev:watch": "./scripts/dev-watch.sh",
-    "prepublishOnly": "npm test && npm run build",
+    "prepublishOnly": "vitest --run && npm run build",
     "release": "./scripts/release.sh",
     "release:patch": "./scripts/release.sh patch",
     "release:minor": "./scripts/release.sh minor",

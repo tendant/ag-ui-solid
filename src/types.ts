@@ -19,6 +19,11 @@ export interface ChatStreamState {
   messages: Message[];
   isStreaming: boolean;
   error: string | null;
+  // AG UI protocol state
+  currentThreadId?: string;
+  currentRunId?: string;
+  agentState?: Record<string, unknown>;
+  completedSteps?: string[];
 }
 
 export interface ChatStreamActions {

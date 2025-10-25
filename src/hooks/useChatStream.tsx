@@ -59,7 +59,7 @@ export function useChatStream(options: UseChatStreamOptions = {}): UseChatStream
           ...headers
         },
         body: JSON.stringify({
-          messages: [...messages(), userMessage],
+          messages: messages(),  // Already includes userMessage from addMessage above
           threadId: currentThreadId(),
           runId: currentRunId()
         })

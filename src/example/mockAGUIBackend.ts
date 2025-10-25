@@ -32,7 +32,7 @@ export async function mockAGUIResponse(
 
   // Generate response based on user message
   const shouldUseToolCall = simulateToolCalls && userMessage.toLowerCase().includes('search');
-  const shouldError = simulateErrors && userMessage.toLowerCase().includes('error');
+  const shouldError = userMessage.toLowerCase().includes('error'); // Always trigger on "error" keyword
 
   return new ReadableStream({
     async start(controller) {

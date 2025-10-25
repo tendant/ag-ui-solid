@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { EventType } from '@ag-ui/core';
+import { MessageAccumulator, ToolCallAccumulator } from './eventParser';
 
 /**
  * Tests for AG UI Protocol Event Parser
@@ -424,6 +425,30 @@ describe('AG UI Event Parser', () => {
 
       // TODO: Decide on behavior
       // expect(validateEvent(event)).toBe(true);
+    });
+  });
+
+  describe('MessageAccumulator Reference Safety', () => {
+    it('should return new object references on each handleEvent call', () => {
+      const accumulator = new MessageAccumulator();
+
+      const event1 = { type: EventType.TEXT_MESSAGE_START, messageId: 'msg-1', role: 'assistant' as const };
+      const event2 = { type: EventType.TEXT_MESSAGE_CONTENT, messageId: 'msg-1', delta: 'Hello' };
+      const event3 = { type: EventType.TEXT_MESSAGE_CONTENT, messageId: 'msg-1', delta: ' world' };
+
+      const result1 = accumulator.handleEvent(event1);
+      const result2 = accumulator.handleEvent(event2);
+      const result3 = accumulator.handleEvent(event3);
+
+      // Each call should return a different object reference
+      expect(result2).not.toBe(result1);
+      expect(result3).not.toBe(result2);
+      expect(result3).not.toBe(result1);
+
+      // Content should accumulate correctly
+      expect(result1?.content).toBe('');
+      expect(result2?.content).toBe('Hello');
+      expect(result3?.content).toBe('Hello world');
     });
   });
 

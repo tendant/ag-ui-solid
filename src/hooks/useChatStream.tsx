@@ -1,6 +1,6 @@
 import { createSignal } from 'solid-js';
 import { EventType } from '@ag-ui/core';
-import type { Message, ChatStreamState, ChatStreamActions, UseChatStreamReturn, ToolResult } from '../types';
+import type { Message, ChatStreamState, ChatStreamActions, UseChatStreamReturn } from '../types';
 import {
   parseSSEChunk,
   MessageAccumulator,
@@ -149,13 +149,14 @@ export function useChatStream(options: UseChatStreamOptions = {}): UseChatStream
       case EventType.TEXT_MESSAGE_START: {
         const partialMessage = messageAccumulator.handleEvent(event);
         if (partialMessage && partialMessage.id) {
+          const messageId = partialMessage.id;
           // Add initial empty message to show streaming started
           setMessages(prev => {
-            const existing = prev.find(m => m.id === partialMessage.id);
+            const existing = prev.find(m => m.id === messageId);
             if (existing) return prev;
 
             return [...prev, {
-              id: partialMessage.id,
+              id: messageId,
               role: partialMessage.role || 'assistant',
               content: partialMessage.content || '',
               timestamp: partialMessage.timestamp || new Date(),
@@ -169,13 +170,14 @@ export function useChatStream(options: UseChatStreamOptions = {}): UseChatStream
       case EventType.TEXT_MESSAGE_CONTENT: {
         const partialMessage = messageAccumulator.handleEvent(event);
         if (partialMessage && partialMessage.id) {
+          const messageId = partialMessage.id;
           // Update message content with delta
           setMessages(prev => {
-            const index = prev.findIndex(m => m.id === partialMessage.id);
+            const index = prev.findIndex(m => m.id === messageId);
             if (index === -1) {
               // Message doesn't exist yet, create it
               return [...prev, {
-                id: partialMessage.id,
+                id: messageId,
                 role: partialMessage.role || 'assistant',
                 content: partialMessage.content || '',
                 timestamp: partialMessage.timestamp || new Date(),
@@ -216,11 +218,12 @@ export function useChatStream(options: UseChatStreamOptions = {}): UseChatStream
       case EventType.TEXT_MESSAGE_CHUNK: {
         const partialMessage = messageAccumulator.handleEvent(event);
         if (partialMessage && partialMessage.id) {
+          const messageId = partialMessage.id;
           setMessages(prev => {
-            const index = prev.findIndex(m => m.id === partialMessage.id);
+            const index = prev.findIndex(m => m.id === messageId);
             if (index === -1) {
               return [...prev, {
-                id: partialMessage.id,
+                id: messageId,
                 role: partialMessage.role || 'assistant',
                 content: partialMessage.content || '',
                 timestamp: partialMessage.timestamp || new Date(),
@@ -245,6 +248,7 @@ export function useChatStream(options: UseChatStreamOptions = {}): UseChatStream
       case EventType.TOOL_CALL_START: {
         const partialToolCall = toolCallAccumulator.handleEvent(event);
         if (partialToolCall && partialToolCall.id) {
+          const toolCallId = partialToolCall.id;
           const parentMessageId = toolCallAccumulator.getParentMessageId(event);
 
           if (parentMessageId) {
@@ -261,11 +265,11 @@ export function useChatStream(options: UseChatStreamOptions = {}): UseChatStream
               }
 
               message.toolResults = [...message.toolResults, {
-                id: partialToolCall.id,
+                id: toolCallId,
                 toolName: partialToolCall.toolName || '',
                 input: partialToolCall.input || {},
                 output: partialToolCall.output || '',
-                status: 'pending',
+                status: 'pending' as const,
                 timestamp: partialToolCall.timestamp || new Date()
               }];
 

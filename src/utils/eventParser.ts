@@ -138,8 +138,13 @@ export class MessageAccumulator {
     const message = this.messages.get(event.messageId);
 
     if (message) {
-      message.content = (message.content || '') + event.delta;
-      return message;
+      // Create a new object reference with updated content (immutable update)
+      const updated = {
+        ...message,
+        content: (message.content || '') + event.delta
+      };
+      this.messages.set(event.messageId, updated);
+      return updated;
     }
 
     return null;
@@ -172,7 +177,13 @@ export class MessageAccumulator {
     }
 
     if (event.delta) {
-      message.content = (message.content || '') + event.delta;
+      // Create a new object reference with updated content (immutable update)
+      const updated = {
+        ...message,
+        content: (message.content || '') + event.delta
+      };
+      this.messages.set(messageId, updated);
+      return updated;
     }
 
     return message;
@@ -249,13 +260,18 @@ export class ToolCallAccumulator {
         // Accumulate JSON args (may come in chunks)
         const currentArgs = toolCall.input || {};
         const newArgs = JSON.parse(event.args);
-        toolCall.input = { ...currentArgs, ...newArgs };
+        // Create a new object reference with updated input (immutable update)
+        const updated = {
+          ...toolCall,
+          input: { ...currentArgs, ...newArgs }
+        };
+        this.toolCalls.set(event.toolCallId, updated);
+        return updated;
       } catch (error) {
         // If JSON is incomplete, store as string temporarily
         console.warn('[AG UI] Failed to parse tool args:', error);
+        return toolCall;
       }
-
-      return toolCall;
     }
 
     return null;
@@ -270,9 +286,14 @@ export class ToolCallAccumulator {
     const toolCall = this.toolCalls.get(event.toolCallId);
 
     if (toolCall) {
-      toolCall.output = event.result;
-      toolCall.status = event.status || 'success';
-      return toolCall;
+      // Create a new object reference with updated output/status (immutable update)
+      const updated = {
+        ...toolCall,
+        output: event.result,
+        status: event.status || 'success'
+      };
+      this.toolCalls.set(event.toolCallId, updated);
+      return updated;
     }
 
     return null;

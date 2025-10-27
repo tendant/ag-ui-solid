@@ -20,12 +20,11 @@ export default defineConfig({
     },
     cssCodeSplit: false, // Keep CSS in a single file
     rollupOptions: {
-      external: ['solid-js', 'solid-js/web', 'solid-js/store', '@kobalte/core', 'lucide-solid'],
+      external: ['solid-js', 'solid-js/web', 'solid-js/store', '@kobalte/core'],
       output: {
         globals: {
           'solid-js': 'SolidJS',
-          '@kobalte/core': 'KobalteCore',
-          'lucide-solid': 'LucideSolid'
+          '@kobalte/core': 'KobalteCore'
         },
         // Inject CSS import into the bundle
         assetFileNames: (assetInfo) => {

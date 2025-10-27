@@ -42,7 +42,6 @@
   },
   "peerDependencies": {
     "@kobalte/core": "^0.13.0",
-    "lucide-solid": "^0.545.0",
     "solid-js": "^1.8.0"
   },
   "devDependencies": {
@@ -78,6 +77,7 @@
   "dependencies": {
     "@ag-ui/core": "^0.0.39",
     "@solid-primitives/i18n": "^2.2.1",
+    "lucide-solid": "^0.545.0",
     "marked": "^16.4.0"
   }
 }

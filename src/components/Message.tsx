@@ -25,7 +25,7 @@ export const Message: Component<MessageProps> = (props) => {
   const getRoleStyles = () => {
     switch (props.message.role) {
       case 'user':
-        return 'bg-blue-600 text-white ml-auto';
+        return 'bg-blue-50 text-blue-600 ml-auto';
       case 'assistant':
         return 'bg-gray-100 text-gray-900 mr-auto';
       case 'system':

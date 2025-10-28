@@ -18,7 +18,7 @@ describe('Message', () => {
     const message = createMockMessage({ role: 'user' });
     const { container } = render(() => <Message message={message} />);
 
-    const messageBox = container.querySelector('.bg-blue-600');
+    const messageBox = container.querySelector('.bg-blue-50');
     expect(messageBox).toBeInTheDocument();
     expect(screen.getByText('User')).toBeInTheDocument();
     // Check for lucide User icon SVG
